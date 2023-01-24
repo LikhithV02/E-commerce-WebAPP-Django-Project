@@ -25,7 +25,7 @@ class seller(models.Model):
 
 
 class product(models.Model):
-    pr_name = models.CharField(max_length=50)
+    pr_name = models.CharField(max_length=200)
     pr_id = models.BigAutoField(primary_key=True)
     pr_price = models.FloatField(max_length=20, default=1)
     pr_status = models.BooleanField(default=1)
