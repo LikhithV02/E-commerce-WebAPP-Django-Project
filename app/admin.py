@@ -38,7 +38,7 @@ class sellerAdmin(admin.ModelAdmin):
 
 @admin.register(warehouse)
 class warehouseAdmin(admin.ModelAdmin):
-    list_display = ['pr_id', 'ware_pr_quantity', 'order_no']
+    list_display = ['pr_id', 'order_no']
 
 @admin.register(cart)
 class cartAdmin(admin.ModelAdmin):

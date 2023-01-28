@@ -50,8 +50,8 @@ def show_cart(request):
 def plus_cart(request):
     if request.method == 'GET':
         prod_id = request.GET['prod_id']
-        print(prod_id)
-        c = cart.objects.get(Q(Product=prod_id) & Q(user=request.user))
+        #print(prod_id)
+        c = cart.objects.get(Q(Product=prod_id) & Q(user=request.user) )
         c.order_quantity+=1
         c.save()
         amount = 0.0
@@ -143,7 +143,19 @@ class CustomerRegistrationView(View):
         return render(request, 'app/customerregistration.html',{'form':form})
 
 def checkout(request):
- return render(request, 'app/checkout.html')
+    user = request.user
+    add = customer.objects.filter(user=user)
+    cart_items = cart.objects.filter(user=user)
+    amount = 0.0
+    shipping_amt = 120.0
+    total_amt = 0.0
+    cart_product = [p for p in cart.objects.all() if p.user==request.user]
+    if cart_product:
+        for p in cart_product:
+            tempamt = (p.order_quantity * p.Product.pr_price)
+            amount += tempamt
+        total_amt += amount + shipping_amt
+    return render(request, 'app/checkout.html', {'add':add, 'total_amt':total_amt, 'cart_items':cart_items})
 
 class ProfileView(View):
     def get(self, request):
@@ -162,3 +174,4 @@ class ProfileView(View):
             reg.save()
             messages.success(request, 'Congratulations!!! Profile has been Updated Successfully')
         return render(request, 'app/profile.html', {'form':form, 'active':'btn-primary'})
+

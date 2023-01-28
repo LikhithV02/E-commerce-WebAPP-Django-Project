@@ -65,6 +65,10 @@ class cart(models.Model):
     def __str__(self):
         return str(self.order_no)
 
+    @property
+    def total_cost(self):
+        return self.order_quantity * self.Product.pr_price
+
 
 class orders(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -82,7 +86,7 @@ class orders(models.Model):
 class warehouse(models.Model):
     pr_id = models.OneToOneField(product, on_delete=models.CASCADE, primary_key=True)
     order_no = models.OneToOneField(cart, on_delete=models.CASCADE)
-    ware_pr_quantity = models.PositiveIntegerField()
+    #quantity = models.ForeignKey(product, on_delete=models.CASCADE)
 
     class Meta:
         unique_together = [['pr_id', 'order_no']]
