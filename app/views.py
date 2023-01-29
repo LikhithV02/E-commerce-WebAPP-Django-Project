@@ -129,6 +129,33 @@ def electronics(request, data=None):
         elec = product.objects.filter(category_id='2').filter(pr_price__gt=10000)
     return render(request, 'app/electronics.html', {'electronics':elec})
 
+def fashion(request, data=None):
+    if data==None:
+        fash =product.objects.filter(category_id='1')
+    elif data=='below':
+        fash = product.objects.filter(category_id='1').filter(pr_price__lt=500)
+    elif data=='above':
+        fash = product.objects.filter(category_id='1').filter(pr_price__gt=500)
+    return render(request, 'app/fashion.html', {'fashion':fash})
+
+def books(request, data=None):
+    if data==None:
+        books =product.objects.filter(category_id='3')
+    elif data=='below':
+        books = product.objects.filter(category_id='3').filter(pr_price__lt=500)
+    elif data=='above':
+        books = product.objects.filter(category_id='3').filter(pr_price__gt=500)
+    return render(request, 'app/books.html', {'books':books})
+
+
+def grocery(request, data=None):
+    if data==None:
+        grocery =product.objects.filter(category_id='4')
+    elif data=='below':
+        grocery = product.objects.filter(category_id='4').filter(pr_price__lt=100)
+    elif data=='above':
+        grocery = product.objects.filter(category_id='4').filter(pr_price__gt=100)
+    return render(request, 'app/grocery.html', {'grocery':grocery})
 
 class CustomerRegistrationView(View):
     def get(self, request):
@@ -156,6 +183,16 @@ def checkout(request):
             amount += tempamt
         total_amt += amount + shipping_amt
     return render(request, 'app/checkout.html', {'add':add, 'total_amt':total_amt, 'cart_items':cart_items})
+
+def payment_done(request):
+    user = request.user
+    custid = request.GET.get('custid')
+    custom = customer.objects.get(id=custid)
+    cart = cart.objects.filter(user=user)
+    for c in cart:
+        orders(user=user, Customer=custom, Product=c.Product, cart_quantity=c.order_quantity, order_no=c.order_no).save()
+        c.delete()
+    return redirect("orders")
 
 class ProfileView(View):
     def get(self, request):

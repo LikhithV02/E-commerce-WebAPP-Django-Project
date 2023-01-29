@@ -20,7 +20,7 @@ class customerAdmin(admin.ModelAdmin):
 
 @admin.register(orders)
 class ordersAdmin(admin.ModelAdmin):
-    list_display = ['order_date', 'pr_id', 'order_no', 'c_id']
+    list_display = ['order_date', 'Product', 'order_no', 'Customer']
 
 @admin.register(payment)
 class paymentAdmin(admin.ModelAdmin):

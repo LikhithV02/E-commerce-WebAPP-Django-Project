@@ -43,8 +43,8 @@ class product(models.Model):
 
 
 class customer(models.Model):
-    c_id = models.ManyToManyField(product, through='orders')
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    c_id = models.ManyToManyField(product, through='orders')
     c_name = models.CharField(max_length=20)
     email_id = models.CharField(max_length=20)
     mobile_no = models.BigIntegerField()
@@ -72,16 +72,17 @@ class cart(models.Model):
 
 class orders(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    c_id = models.ForeignKey(customer, on_delete=models.CASCADE)
-    pr_id = models.ForeignKey(product, on_delete=models.CASCADE)
+    Customer = models.ForeignKey(customer, on_delete=models.CASCADE)
+    Product = models.ForeignKey(product, on_delete=models.CASCADE)
     order_no = models.ForeignKey(cart, on_delete=models.CASCADE)
+    cart_quantity = models.PositiveIntegerField(null=True, default=1)
     order_date = models.DateTimeField(auto_now_add=True)
     #choices = STATUS_CHOICES, default='Pending'
     def __str__(self):
         return self.order_no
 
     class Meta:
-        unique_together = [['user','pr_id', 'c_id']]
+        unique_together = [['user','Product', 'Customer']]
 
 class warehouse(models.Model):
     pr_id = models.OneToOneField(product, on_delete=models.CASCADE, primary_key=True)

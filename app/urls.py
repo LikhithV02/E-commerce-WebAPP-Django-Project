@@ -18,8 +18,17 @@ urlpatterns = [
     path('profile/', views.ProfileView.as_view(), name='profile'),
     path('address/', views.address, name='address'),
     path('orders/', views.orders, name='orders'),
+    path('fashion/', views.fashion, name='fashion'),
+    path('fashion/<slug:data>', views.fashion, name='fashiondata'),
     path('electronics/', views.electronics, name='electronics'),
     path('electronics/<slug:data>', views.electronics, name='electronicsdata'),
+    path('books/', views.books, name='books'),
+    path('books/<slug:data>', views.books, name='booksdata'),
+    path('grocery/', views.grocery, name='grocery'),
+    path('grocery/<slug:data>', views.grocery, name='grocerydata'),
+    path('checkout/', views.checkout, name='checkout'),
+    path('paymentdone/', views.payment_done, name='paymentdone'),
+    
     path('accounts/login/', auth_views.LoginView.as_view(template_name='app/login.html',
     authentication_form=LoginForm), name='login'),
     path('logout/', auth_views.LogoutView.as_view(next_page='login'), name='logout'),
@@ -27,5 +36,5 @@ urlpatterns = [
     'app/passwordchange.html',form_class=MyPasswordChangeForm), name='passwordchange'),
     path('registration/', views.CustomerRegistrationView.as_view(),
     name = "customerregistration"),
-    path('checkout/', views.checkout, name='checkout'),
+    
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
