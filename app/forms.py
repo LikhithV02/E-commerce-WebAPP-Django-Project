@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, User
 from django.contrib.auth.models import User
 from django.utils.translation import gettext, gettext_lazy as _
 from django.contrib.auth import password_validation
-from .models import customer
+from .models import customer, orders
 
 class CustomerRegistrationForm(UserCreationForm):
     password1 = forms.CharField(label='Password', 

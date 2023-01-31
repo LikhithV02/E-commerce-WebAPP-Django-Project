@@ -16,11 +16,11 @@ class categoryAdmin(admin.ModelAdmin):
 
 @admin.register(customer)
 class customerAdmin(admin.ModelAdmin):
-    list_display = ['user', 'c_name', 'email_id', 'mobile_no', 'c_add']
+    list_display = ['user', 'c_id','c_name', 'email_id', 'mobile_no', 'c_add']
 
 @admin.register(orders)
 class ordersAdmin(admin.ModelAdmin):
-    list_display = ['order_date', 'Product', 'order_no', 'Customer']
+    list_display = ['order_date', 'pr_id', 'order_no', 'Custom', 'user', 'cart_quantity']
 
 @admin.register(payment)
 class paymentAdmin(admin.ModelAdmin):

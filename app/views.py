@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views import View
-from .models import customer,category,cart,seller,product,payment,warehouse
+from .models import customer,category,cart,seller,product,payment,warehouse,orders
 from .forms import CustomerRegistrationForm, CustomerProfileForm
 from django.contrib import messages
 from django.db.models import Q
@@ -185,12 +185,13 @@ def checkout(request):
     return render(request, 'app/checkout.html', {'add':add, 'total_amt':total_amt, 'cart_items':cart_items})
 
 def payment_done(request):
-    user = request.user
+    user_ = request.user
     custid = request.GET.get('custid')
     custom = customer.objects.get(id=custid)
-    cart = cart.objects.filter(user=user)
-    for c in cart:
-        orders(user=user, Customer=custom, Product=c.Product, cart_quantity=c.order_quantity, order_no=c.order_no).save()
+    Cart = cart.objects.filter(user=user_)
+    for c in Cart:
+        orders(Custom_id=custom, order_no_id=c.order_no, Product_id=c.Product, user_id=user_, cart_quantity=c.order_quantity).save()
+        #orders.save()
         c.delete()
     return redirect("orders")
 
