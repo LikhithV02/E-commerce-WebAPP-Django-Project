@@ -28,6 +28,7 @@ urlpatterns = [
     path('grocery/<slug:data>', views.grocery, name='grocerydata'),
     path('checkout/', views.checkout, name='checkout'),
     path('paymentdone/', views.payment_done, name='paymentdone'),
+
     
     path('accounts/login/', auth_views.LoginView.as_view(template_name='app/login.html',
     authentication_form=LoginForm), name='login'),

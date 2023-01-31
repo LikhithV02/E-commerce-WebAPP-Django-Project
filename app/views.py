@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect
 from django.views import View
-from .models import customer,category,cart,seller,product,payment,warehouse,orders
+from .models import customer,category,cart,seller,product,payment,warehouse,orders, order
 from .forms import CustomerRegistrationForm, CustomerProfileForm
 from django.contrib import messages
 from django.db.models import Q
 from django.http import JsonResponse
+from 
 
 class ProductView(View):
     def get(self, request):
@@ -118,15 +119,16 @@ def address(request):
     return render(request, 'app/address.html', {'c_add': add, 'active':'btn-primary'})
 
 def orders(request):
- return render(request, 'app/orders.html')
+    op = order.objects.filter(user_id=request.user)
+    return render(request, 'app/orders.html', {'order_placed':op})
 
 def electronics(request, data=None):
     if data==None:
-        elec =product.objects.filter(category_id='2')
+        elec =product.objects.filter(category_id='1')
     elif data=='below':
-        elec = product.objects.filter(category_id='2').filter(pr_price__lt=10000)
+        elec = product.objects.filter(category_id='1').filter(pr_price__lt=10000)
     elif data=='above':
-        elec = product.objects.filter(category_id='2').filter(pr_price__gt=10000)
+        elec = product.objects.filter(category_id='1').filter(pr_price__gt=10000)
     return render(request, 'app/electronics.html', {'electronics':elec})
 
 def fashion(request, data=None):
@@ -186,14 +188,16 @@ def checkout(request):
 
 def payment_done(request):
     user_ = request.user
-    custid = request.GET.get('custid')
-    custom = customer.objects.get(id=custid)
+    #user_id = request.user.pk
+    cust_id = request.GET.get('custid')
+    custom = customer.objects.get(c_id=cust_id)
     Cart = cart.objects.filter(user=user_)
     for c in Cart:
-        orders(Custom_id=custom, order_no_id=c.order_no, Product_id=c.Product, user_id=user_, cart_quantity=c.order_quantity).save()
+        order(user_id=user_, Customer=custom, Product=c.Product, cart_quantity=c.order_quantity).save()
         #orders.save()
+        #custom.product.add(c.order_quantity, c.order_no, user_, c.Product, through_defaults={'order_date': 2})
         c.delete()
-    return redirect("orders")
+    return render(request, 'app/successfullorder.html')
 
 class ProfileView(View):
     def get(self, request):

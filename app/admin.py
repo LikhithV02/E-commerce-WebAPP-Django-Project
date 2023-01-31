@@ -7,16 +7,17 @@ from .models import (
     product,
     payment,
     warehouse,
-    cart
+    cart,
+    order
 )
-
+'''
 @admin.register(category)
 class categoryAdmin(admin.ModelAdmin):
     list_display = ['category_id', 'category_name']
 
 @admin.register(customer)
 class customerAdmin(admin.ModelAdmin):
-    list_display = ['user', 'c_id','c_name', 'email_id', 'mobile_no', 'c_add']
+    list_display = ['user','c_name', 'email_id', 'mobile_no', 'c_add']
 
 @admin.register(orders)
 class ordersAdmin(admin.ModelAdmin):
@@ -42,4 +43,16 @@ class warehouseAdmin(admin.ModelAdmin):
 
 @admin.register(cart)
 class cartAdmin(admin.ModelAdmin):
-    list_display = ['user','Product','order_no', 'order_date', 'order_quantity']
+    list_display = ['user','Product','order_no', 'order_date', 'order_quantity']'''
+
+admin.site.register(product)
+admin.site.register(customer)
+admin.site.register(cart)
+admin.site.register(category)
+admin.site.register(seller)
+admin.site.register(payment)
+admin.site.register(warehouse)
+admin.site.register(orders)
+admin.site.register(order)
+
+
