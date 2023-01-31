@@ -10,7 +10,7 @@ from .models import (
     cart,
     order
 )
-'''
+
 @admin.register(category)
 class categoryAdmin(admin.ModelAdmin):
     list_display = ['category_id', 'category_name']
@@ -19,13 +19,10 @@ class categoryAdmin(admin.ModelAdmin):
 class customerAdmin(admin.ModelAdmin):
     list_display = ['user','c_name', 'email_id', 'mobile_no', 'c_add']
 
-@admin.register(orders)
-class ordersAdmin(admin.ModelAdmin):
-    list_display = ['order_date', 'pr_id', 'order_no', 'Custom', 'user', 'cart_quantity']
 
-@admin.register(payment)
+'''@admin.register(payment)
 class paymentAdmin(admin.ModelAdmin):
-    list_display = ['pay_id', 'pay_type', 'order_no']
+    list_display = ['pay_id', 'pay_type', 'order_no']'''
 
 @admin.register(product)
 class productAdmin(admin.ModelAdmin):
@@ -37,22 +34,14 @@ class sellerAdmin(admin.ModelAdmin):
     list_display = ['seller_id', 'seller_name', 'seller_add', 'GST_no',
     'seller_email_id', 'seller_mobile_no']
 
-@admin.register(warehouse)
+'''@admin.register(warehouse)
 class warehouseAdmin(admin.ModelAdmin):
-    list_display = ['pr_id', 'order_no']
+    list_display = ['pr_id', 'order_no']'''
 
 @admin.register(cart)
 class cartAdmin(admin.ModelAdmin):
-    list_display = ['user','Product','order_no', 'order_date', 'order_quantity']'''
+    list_display = ['user','Product','order_no', 'order_date', 'order_quantity']
 
-admin.site.register(product)
-admin.site.register(customer)
-admin.site.register(cart)
-admin.site.register(category)
-admin.site.register(seller)
-admin.site.register(payment)
-admin.site.register(warehouse)
-admin.site.register(orders)
-admin.site.register(order)
-
-
+@admin.register(order)
+class cartAdmin(admin.ModelAdmin):
+    list_display = ['user_id','id', 'Product','Customer', 'order_date', 'cart_quantity']
