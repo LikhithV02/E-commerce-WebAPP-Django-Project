@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views import View
-from .models import customer,category,cart,seller,product,payment,warehouse,orders, order
+from .models import customer,category,cart,seller,product, order
 from .forms import CustomerRegistrationForm, CustomerProfileForm
 from django.contrib import messages
 from django.db.models import Q

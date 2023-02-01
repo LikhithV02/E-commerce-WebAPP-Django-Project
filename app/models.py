@@ -36,7 +36,7 @@ class product(models.Model):
     pr_image = models.ImageField(upload_to='product_img')
 
     def __str__(self):
-        return str(self.pr_id)
+        return str(self.pr_name)
 
 
 class customer(models.Model):
@@ -99,7 +99,7 @@ class order(models.Model):
         return self.cart_quantity * self.Product.pr_price
 
 
-class warehouse(models.Model):
+'''class warehouse(models.Model):
     pr_id = models.OneToOneField(product, on_delete=models.CASCADE, primary_key=True)
     order_no = models.OneToOneField(cart, on_delete=models.CASCADE)
     #quantity = models.ForeignKey(product, on_delete=models.CASCADE)
@@ -114,6 +114,4 @@ class payment(models.Model):
     order_no = models.OneToOneField(cart, on_delete=models.CASCADE)
 
     def __str__(self):
-        return str(self.pay_id)
-
-
+        return str(self.pay_id)'''

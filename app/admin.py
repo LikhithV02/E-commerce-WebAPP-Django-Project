@@ -3,10 +3,7 @@ from .models import (
     category,
     customer,
     seller,
-    orders,
     product,
-    payment,
-    warehouse,
     cart,
     order
 )
